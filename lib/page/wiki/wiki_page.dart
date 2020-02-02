@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:wuhan2020_flutter_app/entity/wiki.dart';
 import 'package:wuhan2020_flutter_app/entity/wiki_data.dart';
+import 'package:wuhan2020_flutter_app/page/browser.dart';
 
 class WikiPage extends StatefulWidget {
   final WikiData wikiData;
@@ -66,24 +67,37 @@ class WikiItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(4.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            Text('${bean.title}',
-                style: TextStyle(fontSize: 15.0, color: Colors.green)),
-            Text('${bean.description}'),
-            Container(
-              margin: const EdgeInsets.all(5.0),
-              child: Image(
-                image: CachedNetworkImageProvider('${bean.imgUrl}'),
-                fit: BoxFit.fitWidth,
+    return Material(
+      child: Ink(
+        color: Color(0xFFFFFFFF),
+        child: InkResponse(
+          highlightShape: BoxShape.rectangle,
+          radius: 300.0,
+          highlightColor: Color(0x11000000),
+          onTap: () {
+            Browser.open(context, bean.linkUrl, bean.title);
+          },
+          child: Card(
+            child: Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Text('${bean.title}',
+                      style: TextStyle(fontSize: 15.0, color: Colors.green)),
+                  Text('${bean.description}'),
+                  Container(
+                    margin: const EdgeInsets.all(5.0),
+                    child: Image(
+                      image: CachedNetworkImageProvider('${bean.imgUrl}'),
+                      fit: BoxFit.fitWidth,
+                    ),
+                  ),
+                ],
               ),
             ),
-          ],
+          ),
         ),
       ),
     );
