@@ -61,7 +61,9 @@ class SicknessProvider with ChangeNotifier {
   Future refresh() async {
     print("refresh:$viewModel,$refreshController");
     _response = await viewModel.loadData(0);
-    if (_response.data != null && _response.data.getAreaStat.length > 0) {
+    if (_response != null &&
+        _response.data != null &&
+        _response.data.getAreaStat.length > 0) {
       caculateCount();
       refreshController?.refreshCompleted();
     } else {
