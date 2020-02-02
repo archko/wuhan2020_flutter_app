@@ -33,7 +33,7 @@ class NewsProvider with ChangeNotifier {
         data = _response.data.list;
         refreshController?.refreshCompleted();
       } else {
-        refreshController?.loadNoData();
+        refreshController?.refreshFailed();
       }
     } else {
       data = [];
@@ -52,7 +52,11 @@ class NewsProvider with ChangeNotifier {
 
       refreshController?.refreshCompleted();
     } else {
-      refreshController?.loadNoData();
+      if (_response.code == 200) {
+        refreshController?.resetNoData();
+      } else {
+        refreshController?.loadFailed();
+      }
     }
 
     notifyListeners();
