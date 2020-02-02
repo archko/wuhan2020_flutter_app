@@ -112,13 +112,13 @@ class _SicknessPageState extends State<SicknessPage>
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text('确认:${model.confirmedCount}',
+                    Text('全国共确认:${model.confirmedCount}',
                         style: TextStyle(fontSize: 16.0, color: Colors.red)),
-                    Text('疑似:${model.suspectedCount}',
+                    Text('全国共疑似:${model.suspectedCount}',
                         style: TextStyle(fontSize: 16.0, color: Colors.red)),
-                    Text('治愈:${model.curedCount}',
+                    Text('全国共治愈:${model.curedCount}',
                         style: TextStyle(fontSize: 16.0, color: Colors.green)),
-                    Text('死亡:${model.deadCount}',
+                    Text('全国共死亡:${model.deadCount}',
                         style: TextStyle(fontSize: 16.0, color: Colors.red)),
                   ],
                 ),
