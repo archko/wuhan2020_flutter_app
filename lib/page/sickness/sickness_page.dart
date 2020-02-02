@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:wuhan2020_flutter_app/entity/province_stat.dart';
+import 'package:wuhan2020_flutter_app/model/base_list_state.dart';
 import 'package:wuhan2020_flutter_app/model/provider_widget.dart';
 import 'package:wuhan2020_flutter_app/model/sickness_provider.dart';
 import 'package:wuhan2020_flutter_app/model/sickness_view_model.dart';
-import 'package:wuhan2020_flutter_app/page/base_list_state.dart';
-import 'package:wuhan2020_flutter_app/page/sickness_province_list_item.dart';
+import 'package:wuhan2020_flutter_app/page/sickness/sickness_province_list_item.dart';
 
 class SicknessPage extends StatefulWidget {
   SicknessPage({Key key}) : super(key: key);
@@ -36,6 +36,12 @@ class _SicknessPageState extends State<SicknessPage>
   }
 
   @override
+  Future refresh() async {}
+
+  @override
+  Future<void> loadMore() async {}
+
+  @override
   Widget build(BuildContext context) {
     super.build(context);
     return ProviderWidget<SicknessProvider>(
@@ -44,7 +50,7 @@ class _SicknessPageState extends State<SicknessPage>
       onModelInitial: (m) {
         m.refresh();
       },
-      builder: (context, model, child) {
+      builder: (context, model, childWidget) {
         return Container(
           margin: EdgeInsets.all(4),
           child: SmartRefresher(

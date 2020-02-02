@@ -8,6 +8,10 @@ import 'package:wuhan2020_flutter_app/utils/json_utils.dart';
 class NewsViewModel extends BaseListViewModel<NewsResponse> {
   NewsResponse _response;
 
+  NewsViewModel() {
+    page = 1;
+  }
+
   int getCount() {
     return _response == null
         ? 0

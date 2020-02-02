@@ -1,5 +1,5 @@
-import 'package:wuhan2020_flutter_app/page/news_page.dart';
-import 'package:wuhan2020_flutter_app/page/sickness_page.dart';
+import 'package:wuhan2020_flutter_app/page/news/news_page.dart';
+import 'package:wuhan2020_flutter_app/page/sickness/sickness_page.dart';
 import 'package:wuhan2020_flutter_app/widget/tabs/tab_bar_widget.dart';
 import 'package:flutter/material.dart';
 

@@ -30,14 +30,7 @@ class SicknessProvider with ChangeNotifier {
     print("refresh:$viewModel,$refreshController");
     _response = await viewModel.loadData(0);
     if (_response.data != null && _response.data.getAreaStat.length > 0) {
-      var list = _response.data.getAreaStat;
-      if (list != null && list.length > 0) {
-        if (list.length < 1) {
-          refreshController?.loadNoData();
-        } else {
-          refreshController?.refreshCompleted();
-        }
-      }
+      refreshController?.refreshCompleted();
     } else {
       refreshController?.loadNoData();
     }
