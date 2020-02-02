@@ -13,11 +13,9 @@ class HomeTabsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return new MaterialApp(
       title: '武汉加油',
-      theme: new ThemeData(
-        primarySwatch: Colors.green,
-      ),
       home: new TabBarPageWidget(
         tabViews: tabViews,
+        title: '武汉加油',
       ),
     );
   }

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:wuhan2020_flutter_app/entity/province_stat.dart';
+import 'package:wuhan2020_flutter_app/model/provider_widget.dart';
+import 'package:wuhan2020_flutter_app/model/sickness_provider.dart';
 import 'package:wuhan2020_flutter_app/model/sickness_view_model.dart';
 import 'package:wuhan2020_flutter_app/page/base_list_state.dart';
 import 'package:wuhan2020_flutter_app/page/sickness_province_list_item.dart';
@@ -22,7 +25,7 @@ class _SicknessPageState extends State<SicknessPage>
   void initState() {
     super.initState();
     print("initState");
-    refreshController = new RefreshController(initialRefresh: true);
+    refreshController = new RefreshController(initialRefresh: false);
     viewModel = new SicknessViewModel();
   }
 
@@ -32,73 +35,58 @@ class _SicknessPageState extends State<SicknessPage>
     print("dispose");
   }
 
-  Future<void> loadMore() async {
-    refreshController.loadNoData();
-  }
-
-  @override
-  Future refresh() async {
-    viewModel.setPage(startPage);
-    await (viewModel as SicknessViewModel)
-        .loadData(viewModel.page)
-        .then((trending) {
-      setState(() {
-        print("refresh end.${viewModel.page}, ${viewModel.getCount()}");
-        if (trending.data == null || trending.data.getAreaStat.length < 1) {
-          refreshController.loadNoData();
-        } else {
-          refreshController.refreshCompleted(resetFooterState: true);
-        }
-      });
-    }).catchError((e) => setState(() {
-              print("refresh error,$e");
-              refreshController.loadFailed();
-            }));
-  }
-
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    return ProviderWidget<SicknessProvider>(
+      model: SicknessProvider(
+          viewModel: viewModel, refreshController: refreshController),
+      onModelInitial: (m) {
+        m.refresh();
+      },
+      builder: (context, model, child) {
+        return Container(
+          margin: EdgeInsets.all(4),
+          child: SmartRefresher(
+            enablePullDown: true,
+            enablePullUp: false,
+            controller: refreshController,
+            onRefresh: model.refresh,
+            onLoading: model.loadMore,
+            header: MaterialClassicHeader(),
+            footer: ClassicFooter(
+              loadStyle: LoadStyle.HideAlways,
+            ),
+            child: GridView.builder(
+              primary: false,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 4,
+                  mainAxisSpacing: 4,
+                  childAspectRatio: 1),
+              itemCount: model.getProvinceCount(),
+              itemBuilder: (BuildContext context, int index) =>
+                  _renderItem(context, index, model.getProvinceStats()),
+            ),
+          ),
+        );
+      },
+    );
+  }
 
-    ///return PullWidget(
-    ///  pullController: refreshController,
-    ///  listCount: (viewModel as SicknessViewModel).getCount(),
-    ///  itemBuilder: (BuildContext context, int index) =>
-    ///      _renderItem(context, index),
-    ///  header: MaterialClassicHeader(),
-    ///  //onLoadMore: loadMore,
-    ///  onRefresh: refresh,
-    ///);
-    return Container(
-      margin: EdgeInsets.all(4),
-      child: SmartRefresher(
-        enablePullDown: true,
-        enablePullUp: false,
-        controller: refreshController,
-        onRefresh: refresh,
-        header: MaterialClassicHeader(),
-        footer: ClassicFooter(
-          loadStyle: LoadStyle.HideAlways,
-        ),
-        onLoading: loadMore,
-        child: GridView.builder(
-          primary: false,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 4,
-              mainAxisSpacing: 4,
-              childAspectRatio: 1),
-          itemCount: (viewModel as SicknessViewModel).getCount(),
-          itemBuilder: (BuildContext context, int index) =>
-              _renderItem(context, index),
-        ),
-      ),
+  Widget buildList(List<ProvinceStat> provinceStats) {
+    print("buildList:${provinceStats == null ? 0 : provinceStats.length}");
+    return ListView.builder(
+      itemCount: provinceStats == null ? 0 : provinceStats.length,
+      scrollDirection: Axis.vertical,
+      physics: ClampingScrollPhysics(),
+      itemBuilder: (BuildContext context, int index) =>
+          _renderItem(context, index, provinceStats),
     );
   }
 
   //列表的ltem
-  _renderItem(context, index) {
-    return SicknessProvinceItem(
-        bean: (viewModel as SicknessViewModel).getProvinceStats()[index]);
+  _renderItem(context, index, List<ProvinceStat> provinceStats) {
+    return SicknessProvinceItem(bean: provinceStats[index]);
   }
 }

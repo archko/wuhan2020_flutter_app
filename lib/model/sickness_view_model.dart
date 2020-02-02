@@ -24,7 +24,7 @@ class SicknessViewModel extends BaseListViewModel<SicknessResponse> {
         : (_response.data == null ? null : _response.data.getAreaStat);
   }
 
-  Future<SicknessResponse> loadData(int pn, {String type}) async {
+  Future<SicknessResponse> loadData(int pn) async {
     String url =
         'https://service-0gg71fu4-1252957949.gz.apigw.tencentcs.com/release/dingxiangyuan';
     try {

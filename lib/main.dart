@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:wuhan2020_flutter_app/page/home/home_tabs_page.dart';
+import 'package:wuhan2020_flutter_app/page/news_page.dart';
+import 'package:wuhan2020_flutter_app/page/sickness_page.dart';
+import 'package:wuhan2020_flutter_app/widget/tabs/tab_bar_widget.dart';
 
 void main() {
   runApp(WuhanApp());
@@ -15,6 +18,11 @@ class WuhanApp extends StatefulWidget {
 }
 
 class _WuhanAppState extends State<WuhanApp> {
+  final List<Widget> tabViews = [
+    new SicknessPage(),
+    new NewsPage(),
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -24,7 +32,13 @@ class _WuhanAppState extends State<WuhanApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter provider',
-      home: HomeTabsPage(),
+      theme: new ThemeData(
+        primarySwatch: Colors.green,
+      ),
+      home: TabBarPageWidget(
+        tabViews: tabViews,
+        title: '武汉加油',
+      ),
     );
   }
 }

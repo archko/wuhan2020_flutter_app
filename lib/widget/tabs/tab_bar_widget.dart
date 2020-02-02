@@ -41,7 +41,6 @@ class _TabBarPageWidgetState extends State<TabBarPageWidget> {
         tabItems: _renderTab(),
         tabViews: _renderPage(),
         pageControl: pageControl,
-        backgroundColor: Colors.lightBlue,
         indicatorColor: Colors.white,
         title: new Text(widget.title == null ? "" : widget.title));
   }
