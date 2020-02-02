@@ -27,7 +27,7 @@ class NewsProvider with ChangeNotifier {
     print("refresh:$viewModel,$refreshController");
     int startPage = 1;
     NewsResponse _response = await viewModel.loadData(startPage);
-    if (_response.data != null) {
+    if (null != _response && _response.data != null) {
       viewModel.setPage(startPage);
       if (_response.data.list.length > 0) {
         data = _response.data.list;

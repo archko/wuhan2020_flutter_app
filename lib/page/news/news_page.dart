@@ -56,7 +56,6 @@ class _NewsPageState extends State<NewsPage>
           viewModel: viewModel, refreshController: refreshController),
       onModelInitial: (m) {
         refreshController.requestRefresh();
-        m.refresh();
       },
       builder: (context, model, childWidget) {
         return Container(
@@ -74,18 +73,6 @@ class _NewsPageState extends State<NewsPage>
               itemBuilder: (BuildContext context, int index) =>
                   _renderItem(context, index, model.getNews()),
             ),
-
-            ///child: GridView.builder(
-            //              primary: false,
-            //              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            //                  crossAxisCount: 2,
-            //                  crossAxisSpacing: 4,
-            //                  mainAxisSpacing: 4,
-            //                  childAspectRatio: 1),
-            //              itemCount: model.getProvinceCount(),
-            //              itemBuilder: (BuildContext context, int index) =>
-            //                  _renderItem(context, index, model.getProvinceStats()),
-            //            ),
           ),
         );
       },

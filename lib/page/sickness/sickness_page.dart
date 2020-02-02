@@ -55,7 +55,6 @@ class _SicknessPageState extends State<SicknessPage>
           viewModel: viewModel, refreshController: refreshController),
       onModelInitial: (m) {
         refreshController.requestRefresh();
-        m.refresh();
       },
       builder: (context, model, childWidget) {
         return Container(
@@ -70,16 +69,58 @@ class _SicknessPageState extends State<SicknessPage>
             footer: ClassicFooter(
               loadStyle: LoadStyle.HideAlways,
             ),
-            child: GridView.builder(
-              primary: false,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 4,
-                  mainAxisSpacing: 4,
-                  childAspectRatio: 1),
-              itemCount: model.getProvinceCount(),
-              itemBuilder: (BuildContext context, int index) =>
-                  _renderItem(context, index, model.getProvinceStats()),
+            //child: GridView.builder(
+            //  primary: false,
+            //  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            //      crossAxisCount: 2,
+            //      crossAxisSpacing: 4,
+            //      mainAxisSpacing: 4,
+            //      childAspectRatio: 1),
+            //  itemCount: model.getProvinceCount(),
+            //  itemBuilder: (BuildContext context, int index) =>
+            //      _renderItem(context, index, model.getProvinceStats()),
+            //),
+            child: CustomScrollView(
+              slivers: <Widget>[
+                SliverToBoxAdapter(
+                  child: Container(
+                    margin: const EdgeInsets.only(
+                        left: 4.0, top: 4.0, right: 4.0, bottom: 8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text('确认:${model.confirmedCount}',
+                            style:
+                                TextStyle(fontSize: 16.0, color: Colors.red)),
+                        Text('疑似:${model.suspectedCount}',
+                            style:
+                                TextStyle(fontSize: 16.0, color: Colors.red)),
+                        Text('治愈:${model.curedCount}',
+                            style:
+                                TextStyle(fontSize: 16.0, color: Colors.green)),
+                        Text('死亡:${model.deadCount}',
+                            style:
+                                TextStyle(fontSize: 16.0, color: Colors.red)),
+                      ],
+                    ),
+                  ),
+                ),
+                SliverGrid(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 4,
+                    mainAxisSpacing: 4,
+                    childAspectRatio: 1,
+                  ),
+                  delegate: SliverChildBuilderDelegate(
+                    (BuildContext context, int index) {
+                      return _renderItem(
+                          context, index, model.getProvinceStats());
+                    },
+                    childCount: model.getProvinceCount(),
+                  ),
+                ),
+              ],
             ),
           ),
         );

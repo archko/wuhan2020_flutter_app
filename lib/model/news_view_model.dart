@@ -24,11 +24,11 @@ class NewsViewModel extends BaseListViewModel<NewsResponse> {
     return _response == null
         ? null
         : (_response.data == null ? null : _response.data.list);
-  }
+  }                                                         
 
   Future<NewsResponse> loadData(int pn) async {
     pn ??= 1;
-    String url = 'http://ncov.news.dragon-yuan.me/api/news/query?search=&page=$pn';
+    String url = 'http://ncov.news.dragon-yuan.me/api/news?search=&page=$pn';
     try {
       HttpResponse httpResponse = await HttpClient.instance.get(url);
       String result = httpResponse.data;
