@@ -24,6 +24,7 @@ class _TabBarPageWidgetState extends State<TabBarPageWidget> {
           },
           child: new Text(
             widget.tabViews[i].toStringShort(),
+            style: TextStyle(color: Colors.white),
             maxLines: 1,
           )));
     }

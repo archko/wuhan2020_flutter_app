@@ -6,52 +6,41 @@ class SicknessProvinceItem extends StatelessWidget {
   final ProvinceStat bean;
   final VoidCallback onPressed;
 
-  void detail(String bean) {}
-
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.only(bottom: 10.0, left: 10.0, right: 10.0),
-      child: Row(
-        children: <Widget>[
-          ///Expanded(
-          ///  flex: 2,
-          ///  child: Container(
-          ///    margin: const EdgeInsets.all(10.0),
-          ///    child: ClipRRect(
-          ///      borderRadius: BorderRadius.circular(10.0),
-          ///      child: Image(
-          ///        image: CachedNetworkImageProvider('${bean.kg_pic_url}'),
-          ///        fit: BoxFit.cover,
-          ///      ),
-          ///    ),
-          ///  ),
-          ///),
-          Expanded(
-            flex: 3,
-            child: Container(
-              margin: const EdgeInsets.only(left: 10.0),
-              height: 150.0,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  Text('${bean.provinceName}',
-                      style: TextStyle(fontSize: 15.0, color: Colors.green)),
-                  Text('${bean.comment}',
-                      style: TextStyle(fontSize: 15.0, color: Colors.red)),
-                  Text('确认:${bean.confirmedCount}',
-                      style: TextStyle(color: Colors.red)),
-                  Text('疑似:${bean.suspectedCount}'),
-                  Text('治愈:${bean.curedCount}',
-                      style: TextStyle(color: Colors.green)),
-                  Text('死亡:${bean.deadCount}',
-                      style: TextStyle(color: Colors.red)),
-                ],
+    return GestureDetector(
+      onTap: () {
+        onPressed();
+      },
+      child: Card(
+        margin: const EdgeInsets.only(bottom: 4.0, left: 4.0, right: 4.0),
+        child: Row(
+          children: <Widget>[
+            Expanded(
+              child: Container(
+                margin: const EdgeInsets.only(left: 4.0),
+                height: 150.0,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    Text('${bean.provinceName}',
+                        style: TextStyle(fontSize: 15.0, color: Colors.green)),
+                    Text('确认:${bean.confirmedCount}',
+                        style: TextStyle(color: Colors.red)),
+                    Text('疑似:${bean.suspectedCount}'),
+                    Text('治愈:${bean.curedCount}',
+                        style: TextStyle(color: Colors.green)),
+                    Text('死亡:${bean.deadCount}',
+                        style: TextStyle(color: Colors.red)),
+                    Text('${bean.comment}',
+                        style: TextStyle(fontSize: 14.0, color: Colors.red)),
+                  ],
+                ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

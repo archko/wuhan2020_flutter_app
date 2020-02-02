@@ -5,6 +5,7 @@ import 'package:wuhan2020_flutter_app/model/base_list_state.dart';
 import 'package:wuhan2020_flutter_app/model/provider_widget.dart';
 import 'package:wuhan2020_flutter_app/model/sickness_provider.dart';
 import 'package:wuhan2020_flutter_app/model/sickness_view_model.dart';
+import 'package:wuhan2020_flutter_app/page/sickness/sickness_city_list_page.dart';
 import 'package:wuhan2020_flutter_app/page/sickness/sickness_province_list_item.dart';
 
 class SicknessPage extends StatefulWidget {
@@ -13,6 +14,11 @@ class SicknessPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return _SicknessPageState();
+  }
+
+  @override
+  String toStringShort() {
+    return '病例';
   }
 }
 
@@ -48,6 +54,7 @@ class _SicknessPageState extends State<SicknessPage>
       model: SicknessProvider(
           viewModel: viewModel, refreshController: refreshController),
       onModelInitial: (m) {
+        refreshController.requestRefresh();
         m.refresh();
       },
       builder: (context, model, childWidget) {
@@ -93,6 +100,23 @@ class _SicknessPageState extends State<SicknessPage>
 
   //列表的ltem
   _renderItem(context, index, List<ProvinceStat> provinceStats) {
-    return SicknessProvinceItem(bean: provinceStats[index]);
+    return SicknessProvinceItem(
+      bean: provinceStats[index],
+      onPressed: () {
+        detail(provinceStats[index]);
+      },
+    );
+  }
+
+  void detail(ProvinceStat provinceStat) {
+    Navigator.of(context).push(
+      new MaterialPageRoute<void>(
+        builder: (BuildContext context) {
+          return SicknessCityListPage(
+            provinceStat: provinceStat,
+          );
+        },
+      ),
+    );
   }
 }

@@ -15,6 +15,11 @@ class NewsPage extends StatefulWidget {
   State<StatefulWidget> createState() {
     return _NewsPageState();
   }
+
+  @override
+  String toStringShort() {
+    return '新闻';
+  }
 }
 
 class _NewsPageState extends State<NewsPage>
@@ -46,24 +51,11 @@ class _NewsPageState extends State<NewsPage>
   Widget build(BuildContext context) {
     super.build(context);
 
-    ///return Scaffold(
-    ///  body: PullWidget(
-    ///    pullController: refreshController,
-    ///    listCount: (viewModel as NewsViewModel).getCount(),
-    ///    itemBuilder: (BuildContext context, int index) =>
-    ///        _renderItem(context, index),
-    ///    header: MaterialClassicHeader(),
-    ///    footer: ClassicFooter(
-    ///      loadStyle: LoadStyle.HideAlways,
-    ///    ),
-    ///    onLoadMore: loadMore,
-    ///    onRefresh: refresh,
-    ///  ),
-    ///);
     return ProviderWidget<NewsProvider>(
       model: NewsProvider(
           viewModel: viewModel, refreshController: refreshController),
       onModelInitial: (m) {
+        refreshController.requestRefresh();
         m.refresh();
       },
       builder: (context, model, childWidget) {
