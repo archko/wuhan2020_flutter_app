@@ -14,6 +14,7 @@ class SicknessProvider with ChangeNotifier {
   int suspectedCount = 0;
   int curedCount = 0;
   int deadCount = 0;
+  bool refreshFailed = false;
 
   SicknessProvider({this.viewModel, this.refreshController}) {
     //refresh();
@@ -33,7 +34,7 @@ class SicknessProvider with ChangeNotifier {
                 : _response.data.getAreaStat.length));
   }
 
-  int caculateCount() {
+  caculateCount() {
     confirmedCount = 0;
     suspectedCount = 0;
     curedCount = 0;
@@ -61,6 +62,13 @@ class SicknessProvider with ChangeNotifier {
   Future refresh() async {
     print("refresh:$viewModel,$refreshController");
     _response = await viewModel.loadData(0);
+    if (_response == null || _response.errorCode != 0) {
+      refreshFailed = true;
+      refreshController?.refreshCompleted();
+      notifyListeners();
+      return;
+    }
+    refreshFailed = false;
     if (_response != null &&
         _response.data != null &&
         _response.data.getAreaStat.length > 0) {

@@ -48,20 +48,29 @@ class _HomeTabsPageState extends State<HomeTabsPage> {
         m.refresh();
       },
       builder: (context, model, childWidget) {
-        if (model.getProvinceCount() == 0) {
-          return MaterialApp(
-            theme: ThemeData(
-              primarySwatch: Colors.green,
+        Widget widget;
+        if (model.refreshFailed) {
+          widget = Scaffold(
+            appBar: AppBar(
+              title: Text('武汉加油'),
             ),
-            home: Scaffold(
-              appBar: AppBar(
-                title: Text('武汉加油'),
+            body: Center(
+              child: FlatButton(
+                color: Colors.blue,
+                onPressed: () {
+                  model.refresh();
+                },
+                child: Text('刷新失败了'),
               ),
-              body: Container(
-                margin: EdgeInsets.all(30),
-                alignment: Alignment.topCenter,
-                child: RefreshProgressIndicator(),
-              ),
+            ),
+          );
+        } else if (model.getProvinceCount() == 0) {
+          widget = Scaffold(
+            appBar: AppBar(
+              title: Text('武汉加油'),
+            ),
+            body: Center(
+              child: CircularProgressIndicator(),
             ),
           );
         } else {
@@ -91,16 +100,17 @@ class _HomeTabsPageState extends State<HomeTabsPage> {
                 .add(RumorPage(rumorList: _sicknessProvider.getRumorList()));
           }
 
-          return MaterialApp(
-            theme: ThemeData(
-              primarySwatch: Colors.green,
-            ),
-            home: TabBarPageWidget(
-              tabViews: tabViews,
-              title: '武汉加油',
-            ),
+          widget = TabBarPageWidget(
+            tabViews: tabViews,
+            title: '武汉加油',
           );
         }
+        return MaterialApp(
+          theme: ThemeData(
+            primarySwatch: Colors.green,
+          ),
+          home: widget,
+        );
       },
     );
   }
