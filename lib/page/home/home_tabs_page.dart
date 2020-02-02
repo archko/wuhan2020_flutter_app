@@ -55,7 +55,9 @@ class _HomeTabsPageState extends State<HomeTabsPage> {
           );
         } else {
           tabViews.clear();
-          //tabViews.add(SicknessPage());
+          tabViews.add(SicknessPage(
+            sicknessProvider: _sicknessProvider,
+          ));
           tabViews.add(NewsPage());
           WikiData wikiData = _sicknessProvider.getWikiData();
           if (wikiData != null &&
@@ -72,7 +74,6 @@ class _HomeTabsPageState extends State<HomeTabsPage> {
             theme: ThemeData(
               primarySwatch: Colors.green,
             ),
-            title: '武汉加油',
             home: TabBarPageWidget(
               tabViews: tabViews,
               title: '武汉加油',

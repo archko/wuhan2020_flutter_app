@@ -9,11 +9,12 @@ import 'package:wuhan2020_flutter_app/page/sickness/sickness_city_list_page.dart
 import 'package:wuhan2020_flutter_app/page/sickness/sickness_province_list_item.dart';
 
 class SicknessPage extends StatefulWidget {
-  SicknessPage({Key key}) : super(key: key);
+  SicknessPage({Key key, this.sicknessProvider}) : super(key: key);
+  final SicknessProvider sicknessProvider;
 
   @override
   State<StatefulWidget> createState() {
-    return _SicknessPageState();
+    return _SicknessPageState(parentProvider: sicknessProvider);
   }
 
   @override
@@ -27,12 +28,21 @@ class _SicknessPageState extends State<SicknessPage>
   @override
   bool get wantKeepAlive => true;
 
+  SicknessProvider parentProvider;
+
+  _SicknessPageState({Key key, this.parentProvider}) : super();
+
   @override
   void initState() {
     super.initState();
-    print("initState");
+    print("initState:$parentProvider");
     refreshController = new RefreshController(initialRefresh: false);
-    viewModel = new SicknessViewModel();
+    if (parentProvider == null) {
+      parentProvider = SicknessProvider(
+          viewModel: SicknessViewModel(), refreshController: refreshController);
+    } else {
+      parentProvider.refreshController = refreshController;
+    }
   }
 
   @override
@@ -50,81 +60,87 @@ class _SicknessPageState extends State<SicknessPage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    if (parentProvider != null && parentProvider.getProvinceCount() > 0) {
+      return buildWidgetWithData(parentProvider);
+    } else {
+      return buildWidget();
+    }
+  }
+
+  ProviderWidget<SicknessProvider> buildWidget() {
     return ProviderWidget<SicknessProvider>(
-      model: SicknessProvider(
-          viewModel: viewModel, refreshController: refreshController),
+      model: parentProvider,
       onModelInitial: (m) {
         refreshController.requestRefresh();
       },
       builder: (context, model, childWidget) {
-        return Container(
-          margin: EdgeInsets.all(4),
-          child: SmartRefresher(
-            enablePullDown: true,
-            enablePullUp: false,
-            controller: refreshController,
-            onRefresh: model.refresh,
-            onLoading: model.loadMore,
-            header: MaterialClassicHeader(),
-            footer: ClassicFooter(
-              loadStyle: LoadStyle.HideAlways,
-            ),
-            //child: GridView.builder(
-            //  primary: false,
-            //  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            //      crossAxisCount: 2,
-            //      crossAxisSpacing: 4,
-            //      mainAxisSpacing: 4,
-            //      childAspectRatio: 1),
-            //  itemCount: model.getProvinceCount(),
-            //  itemBuilder: (BuildContext context, int index) =>
-            //      _renderItem(context, index, model.getProvinceStats()),
-            //),
-            child: CustomScrollView(
-              slivers: <Widget>[
-                SliverToBoxAdapter(
-                  child: Container(
-                    margin: const EdgeInsets.only(
-                        left: 4.0, top: 4.0, right: 4.0, bottom: 8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text('确认:${model.confirmedCount}',
-                            style:
-                                TextStyle(fontSize: 16.0, color: Colors.red)),
-                        Text('疑似:${model.suspectedCount}',
-                            style:
-                                TextStyle(fontSize: 16.0, color: Colors.red)),
-                        Text('治愈:${model.curedCount}',
-                            style:
-                                TextStyle(fontSize: 16.0, color: Colors.green)),
-                        Text('死亡:${model.deadCount}',
-                            style:
-                                TextStyle(fontSize: 16.0, color: Colors.red)),
-                      ],
-                    ),
-                  ),
-                ),
-                SliverGrid(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 4,
-                    mainAxisSpacing: 4,
-                    childAspectRatio: 1,
-                  ),
-                  delegate: SliverChildBuilderDelegate(
-                    (BuildContext context, int index) {
-                      return _renderItem(
-                          context, index, model.getProvinceStats());
-                    },
-                    childCount: model.getProvinceCount(),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
+        return buildWidgetWithData(model);
       },
+    );
+  }
+
+  Widget buildWidgetWithData(SicknessProvider model) {
+    return Container(
+      margin: EdgeInsets.all(4),
+      child: SmartRefresher(
+        enablePullDown: true,
+        enablePullUp: false,
+        controller: refreshController,
+        onRefresh: model.refresh,
+        onLoading: model.loadMore,
+        header: MaterialClassicHeader(),
+        footer: ClassicFooter(
+          loadStyle: LoadStyle.HideAlways,
+        ),
+        //child: GridView.builder(
+        //  primary: false,
+        //  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        //      crossAxisCount: 2,
+        //      crossAxisSpacing: 4,
+        //      mainAxisSpacing: 4,
+        //      childAspectRatio: 1),
+        //  itemCount: model.getProvinceCount(),
+        //  itemBuilder: (BuildContext context, int index) =>
+        //      _renderItem(context, index, model.getProvinceStats()),
+        //),
+        child: CustomScrollView(
+          slivers: <Widget>[
+            SliverToBoxAdapter(
+              child: Container(
+                margin: const EdgeInsets.only(
+                    left: 4.0, top: 4.0, right: 4.0, bottom: 8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text('确认:${model.confirmedCount}',
+                        style: TextStyle(fontSize: 16.0, color: Colors.red)),
+                    Text('疑似:${model.suspectedCount}',
+                        style: TextStyle(fontSize: 16.0, color: Colors.red)),
+                    Text('治愈:${model.curedCount}',
+                        style: TextStyle(fontSize: 16.0, color: Colors.green)),
+                    Text('死亡:${model.deadCount}',
+                        style: TextStyle(fontSize: 16.0, color: Colors.red)),
+                  ],
+                ),
+              ),
+            ),
+            SliverGrid(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 4,
+                mainAxisSpacing: 4,
+                childAspectRatio: 1,
+              ),
+              delegate: SliverChildBuilderDelegate(
+                (BuildContext context, int index) {
+                  return _renderItem(context, index, model.getProvinceStats());
+                },
+                childCount: model.getProvinceCount(),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
