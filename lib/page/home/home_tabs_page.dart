@@ -49,11 +49,19 @@ class _HomeTabsPageState extends State<HomeTabsPage> {
       },
       builder: (context, model, childWidget) {
         if (model.getProvinceCount() == 0) {
-          return Scaffold(
-            body: Container(
-              margin: EdgeInsets.all(30),
-              alignment: Alignment.topCenter,
-              child: RefreshProgressIndicator(),
+          return MaterialApp(
+            theme: ThemeData(
+              primarySwatch: Colors.green,
+            ),
+            home: Scaffold(
+              appBar: AppBar(
+                title: Text('武汉加油'),
+              ),
+              body: Container(
+                margin: EdgeInsets.all(30),
+                alignment: Alignment.topCenter,
+                child: RefreshProgressIndicator(),
+              ),
             ),
           );
         } else {
