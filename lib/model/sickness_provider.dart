@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:wuhan2020_flutter_app/entity/rumor.dart';
 import 'package:wuhan2020_flutter_app/entity/sickness_response.dart';
+import 'package:wuhan2020_flutter_app/entity/wiki_data.dart';
 import 'package:wuhan2020_flutter_app/model/sickness_view_model.dart';
 
 class SicknessProvider with ChangeNotifier {
@@ -41,6 +43,14 @@ class SicknessProvider with ChangeNotifier {
       curedCount += item.curedCount;
       deadCount += item.deadCount;
     }
+  }
+
+  WikiData getWikiData() {
+    return _response?.data?.getWikiList;
+  }
+
+  List<Rumor> getRumors() {
+    return _response?.data?.getIndexRumorList;
   }
 
   Future refresh() async {
