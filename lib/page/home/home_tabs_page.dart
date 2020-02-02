@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:wuhan2020_flutter_app/entity/recommend.dart';
 import 'package:wuhan2020_flutter_app/entity/rumor.dart';
 import 'package:wuhan2020_flutter_app/entity/wiki_data.dart';
 import 'package:wuhan2020_flutter_app/model/provider_widget.dart';
 import 'package:wuhan2020_flutter_app/model/sickness_provider.dart';
 import 'package:wuhan2020_flutter_app/model/sickness_view_model.dart';
 import 'package:wuhan2020_flutter_app/page/news/news_page.dart';
+import 'package:wuhan2020_flutter_app/page/recommend/recommend_page.dart';
+import 'package:wuhan2020_flutter_app/page/rumor/rumor_page.dart';
 import 'package:wuhan2020_flutter_app/page/sickness/sickness_page.dart';
 import 'package:wuhan2020_flutter_app/page/wiki/wiki_page.dart';
 import 'package:wuhan2020_flutter_app/widget/tabs/tab_bar_widget.dart';
@@ -68,7 +71,17 @@ class _HomeTabsPageState extends State<HomeTabsPage> {
             ));
           }
 
-          List<Rumor> rumors = _sicknessProvider.getRumors();
+          List<Recommend> recommendList = _sicknessProvider.getRecommendList();
+          if (recommendList != null && recommendList.length > 0) {
+            tabViews.add(RecommendPage(
+                recommendList: _sicknessProvider.getRecommendList()));
+          }
+
+          List<Rumor> rumors = _sicknessProvider.getRumorList();
+          if (rumors != null && rumors.length > 0) {
+            tabViews
+                .add(RumorPage(rumorList: _sicknessProvider.getRumorList()));
+          }
 
           return MaterialApp(
             theme: ThemeData(

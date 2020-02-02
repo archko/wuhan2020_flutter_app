@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:wuhan2020_flutter_app/entity/recommend.dart';
 import 'package:wuhan2020_flutter_app/entity/rumor.dart';
 import 'package:wuhan2020_flutter_app/entity/sickness_response.dart';
 import 'package:wuhan2020_flutter_app/entity/wiki_data.dart';
@@ -49,8 +50,12 @@ class SicknessProvider with ChangeNotifier {
     return _response?.data?.getWikiList;
   }
 
-  List<Rumor> getRumors() {
+  List<Rumor> getRumorList() {
     return _response?.data?.getIndexRumorList;
+  }
+
+  List<Recommend> getRecommendList() {
+    return _response?.data?.getIndexRecommendList;
   }
 
   Future refresh() async {
