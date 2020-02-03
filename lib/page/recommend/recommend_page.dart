@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_base/widget/browser.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:wuhan2020_flutter_app/entity/recommend.dart';
-import 'package:wuhan2020_flutter_app/page/browser.dart';
 
 class RecommendPage extends StatefulWidget {
   final List<Recommend> recommendList;
@@ -17,7 +17,7 @@ class RecommendPage extends StatefulWidget {
 
   @override
   String toStringShort() {
-    return '劝告';
+    return '推荐阅读';
   }
 }
 

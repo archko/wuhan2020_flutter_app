@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base/widget/browser.dart';
 import 'package:wuhan2020_flutter_app/entity/news.dart';
-import 'package:wuhan2020_flutter_app/page/browser.dart';
 
 class NewsItem extends StatelessWidget {
   NewsItem({this.bean}) : super();

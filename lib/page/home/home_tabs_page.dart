@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base/model/provider_widget.dart';
+import 'package:flutter_base/widget/tabs/tab_bar_widget.dart';
 import 'package:wuhan2020_flutter_app/entity/recommend.dart';
 import 'package:wuhan2020_flutter_app/entity/rumor.dart';
 import 'package:wuhan2020_flutter_app/entity/wiki_data.dart';
-import 'package:wuhan2020_flutter_app/model/provider_widget.dart';
 import 'package:wuhan2020_flutter_app/model/sickness_provider.dart';
 import 'package:wuhan2020_flutter_app/model/sickness_view_model.dart';
 import 'package:wuhan2020_flutter_app/page/news/news_page.dart';
@@ -10,7 +11,6 @@ import 'package:wuhan2020_flutter_app/page/recommend/recommend_page.dart';
 import 'package:wuhan2020_flutter_app/page/rumor/rumor_page.dart';
 import 'package:wuhan2020_flutter_app/page/sickness/sickness_page.dart';
 import 'package:wuhan2020_flutter_app/page/wiki/wiki_page.dart';
-import 'package:wuhan2020_flutter_app/widget/tabs/tab_bar_widget.dart';
 
 class HomeTabsPage extends StatefulWidget {
   HomeTabsPage({Key key}) : super(key: key);

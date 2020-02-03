@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_base/widget/browser.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:wuhan2020_flutter_app/entity/wiki.dart';
 import 'package:wuhan2020_flutter_app/entity/wiki_data.dart';
-import 'package:wuhan2020_flutter_app/page/browser.dart';
 
 class WikiPage extends StatefulWidget {
   final WikiData wikiData;

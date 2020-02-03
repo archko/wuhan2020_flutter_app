@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base/model/base_list_state.dart';
+import 'package:flutter_base/model/provider_widget.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:wuhan2020_flutter_app/entity/province_stat.dart';
-import 'package:wuhan2020_flutter_app/model/base_list_state.dart';
-import 'package:wuhan2020_flutter_app/model/provider_widget.dart';
 import 'package:wuhan2020_flutter_app/model/sickness_provider.dart';
 import 'package:wuhan2020_flutter_app/model/sickness_view_model.dart';
 import 'package:wuhan2020_flutter_app/page/sickness/sickness_city_list_page.dart';

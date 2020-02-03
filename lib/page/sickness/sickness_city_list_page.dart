@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:wuhan2020_flutter_app/entity/city_stat.dart';
 import 'package:wuhan2020_flutter_app/entity/province_stat.dart';
-import 'package:wuhan2020_flutter_app/model/base_list_state.dart';
-import 'package:wuhan2020_flutter_app/widget/list/pull_widget.dart';
 
 class SicknessCityListPage extends StatefulWidget {
   final ProvinceStat provinceStat;

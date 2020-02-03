@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter_base/http/http_client.dart';
+import 'package:flutter_base/http/http_response.dart';
+import 'package:flutter_base/model/base_list_view_model.dart';
+import 'package:flutter_base/utils/json_utils.dart';
 import 'package:wuhan2020_flutter_app/entity/news_response.dart';
-import 'package:wuhan2020_flutter_app/http/http_client.dart';
-import 'package:wuhan2020_flutter_app/http/http_response.dart';
-import 'package:wuhan2020_flutter_app/model/base_list_view_model.dart';
-import 'package:wuhan2020_flutter_app/utils/json_utils.dart';
 
 class NewsViewModel extends BaseListViewModel<NewsResponse> {
   NewsResponse _response;
