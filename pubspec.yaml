@@ -25,19 +25,19 @@ dependencies:
   cupertino_icons: ^0.1.2
   json_annotation: 3.0.0
   http: 0.12.0+2
-  cached_network_image: 1.1.1
+  cached_network_image: 2.0.0
 
   dio: 2.1.13
   pull_to_refresh: ^1.5.4
 
   provider: 3.0.0
-  webview_flutter: ^0.3.17
+  webview_flutter: ^0.3.19+5
 
   flutter_base:
-    git:
-      url: 'https://github.com/archko/flutter_base.git'
-      ref: 'master'
-    #path: ../flutter_base/
+    #git:
+    #  url: 'https://github.com/archko/flutter_base.git'
+    #  ref: 'master'
+    path: ../flutter_base/
 
 dev_dependencies:
   flutter_test:
@@ -86,3 +86,15 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+
+  # This section identifies your Flutter project as a module meant for
+  # embedding in a native host app.  These identifiers should _not_ ordinarily
+  # be changed after generation - they are used to ensure that the tooling can
+  # maintain consistency when adding or modifying assets and plugins.
+  # They also do not have any bearing on your native host application's
+  # identifiers, which may be completely independent or the same as these.
+  module:
+    androidX: true
+    androidPackage: com.archko.wuhan2020.wuhan2020_flutter_app
+    iosBundleIdentifier: com.archko.wuhan2020.wuhan2020_flutter_app
