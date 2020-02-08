@@ -108,7 +108,7 @@ class SicknessProvider with ChangeNotifier {
     }
 
     notifyListeners();
-    refresh();
+    refreshController?.requestRefresh();
   }
 
   Future loadMore() async {

@@ -55,7 +55,8 @@ class _NewsPageState extends State<NewsPage>
       model: NewsProvider(
           viewModel: viewModel, refreshController: refreshController),
       onModelInitial: (m) {
-        refreshController.requestRefresh();
+        //refreshController.requestRefresh();
+        m.loadFromCache();
       },
       builder: (context, model, childWidget) {
         return Container(

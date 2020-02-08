@@ -8,7 +8,7 @@ import 'package:wuhan2020_flutter_app/page/news/news_page.dart';
 import 'package:wuhan2020_flutter_app/page/sickness/sickness_page.dart';
 
 void main() {
-  HttpClient.instance.addInterceptor(HttpLogInterceptor());
+  //HttpClient.instance.addInterceptor(HttpLogInterceptor());
   HttpClient.instance.addInterceptor(HttpHeaderInterceptor());
   Logger.init(debuggable: true);
   runApp(WuhanApp());

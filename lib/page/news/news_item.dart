@@ -34,7 +34,8 @@ class NewsItem extends StatelessWidget {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('${bean.fromName}:${bean.sendTime}'),
+                      Text('${bean.fromName}:${bean.sendTime}',
+                          style: TextStyle(fontSize: 14.0, color: Colors.blue)),
                     ],
                   ),
                 ),
@@ -43,8 +44,7 @@ class NewsItem extends StatelessWidget {
                       padding: EdgeInsets.only(
                           left: 5.0, right: 5.0, top: 5.0, bottom: 5.0),
                       child: Text("${bean.content}",
-                          style:
-                              TextStyle(fontSize: 15.0, color: Colors.blue))),
+                          style: TextStyle(fontSize: 15.0))),
                 ),
               ],
             ),

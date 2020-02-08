@@ -1,11 +1,16 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter_base/http/http_client.dart';
 import 'package:flutter_base/http/http_response.dart';
+import 'package:flutter_base/log/logger.dart';
 import 'package:flutter_base/model/base_list_view_model.dart';
 import 'package:flutter_base/utils/json_utils.dart';
+import 'package:wuhan2020_flutter_app/common/file_helper.dart';
 import 'package:wuhan2020_flutter_app/entity/news_response.dart';
 
 class NewsViewModel extends BaseListViewModel<NewsResponse> {
+  static const news_cache = "news_cache";
   NewsResponse _response;
 
   NewsViewModel() {
@@ -24,7 +29,7 @@ class NewsViewModel extends BaseListViewModel<NewsResponse> {
     return _response == null
         ? null
         : (_response.data == null ? null : _response.data.list);
-  }                                                         
+  }
 
   Future<NewsResponse> loadData(int pn) async {
     pn ??= 1;
@@ -33,7 +38,10 @@ class NewsViewModel extends BaseListViewModel<NewsResponse> {
       HttpResponse httpResponse = await HttpClient.instance.get(url);
       String result = httpResponse.data;
       _response = await compute(decodeListResult, result);
-      print("result:$_response");
+      if (_response != null) {
+        saveToCache(result);
+      }
+      //print("result:$_response");
     } catch (e) {
       print(e);
     }
@@ -47,5 +55,25 @@ class NewsViewModel extends BaseListViewModel<NewsResponse> {
   static NewsResponse decodeListResult(String result) {
     //return json.decode(data);
     return NewsResponse.fromJson(JsonUtils.decodeAsMap(result));
+  }
+
+  Future<NewsResponse> loadFromCache() async {
+    try {
+      String path = await FileHelper.getFilePath(news_cache);
+      String result = await FileHelper.getFileContent(path);
+      Logger.d("cache:$path,result:${result != null}");
+      _response = await compute(decodeListResult, result);
+    } catch (e) {
+      Logger.e("loadFromCache .e:$e");
+    }
+    return _response;
+  }
+
+  static saveToCache(String content) async {
+    String path = await FileHelper.getFilePath(news_cache);
+    Logger.d("putFile:$path");
+    if (File(path).exists() != null) {
+      FileHelper.putFile(path, content);
+    }
   }
 }

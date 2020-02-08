@@ -45,6 +45,22 @@ class NewsProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  Future loadFromCache() async {
+    print("loadFromCache:$viewModel,$refreshController");
+    NewsResponse _response = await viewModel.loadFromCache();
+    if (null != _response && _response.data != null) {
+      _newsData.isLastPage = _response.data.isLastPage;
+      _newsData.hasNextPage = _response.data.hasNextPage;
+      if (_response.data.list.length > 0) {
+        data = _response.data.list;
+        refreshController?.refreshCompleted();
+      }
+    }
+
+    notifyListeners();
+    refreshController?.requestRefresh();
+  }
+
   Future loadMore() async {
     if (!_newsData.hasNextPage) {
       refreshController?.resetNoData();
