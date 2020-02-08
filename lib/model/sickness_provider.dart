@@ -3,6 +3,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:wuhan2020_flutter_app/entity/recommend.dart';
 import 'package:wuhan2020_flutter_app/entity/rumor.dart';
 import 'package:wuhan2020_flutter_app/entity/sickness_response.dart';
+import 'package:wuhan2020_flutter_app/entity/timeline.dart';
 import 'package:wuhan2020_flutter_app/entity/wiki_data.dart';
 import 'package:wuhan2020_flutter_app/model/sickness_view_model.dart';
 
@@ -57,6 +58,10 @@ class SicknessProvider with ChangeNotifier {
 
   List<Recommend> getRecommendList() {
     return _response?.data?.getIndexRecommendList;
+  }
+
+  List<Timeline> getTimelineList() {
+    return _response?.data?.getTimelineService;
   }
 
   Future refresh() async {

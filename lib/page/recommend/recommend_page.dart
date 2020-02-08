@@ -73,7 +73,7 @@ class RecommendItem extends StatelessWidget {
           highlightColor: Color(0x11000000),
           onTap: () {
             Browser.open(context, bean.linkUrl,
-                title: bean.title, waitingTxt: "请稍候");
+                title: bean.title, waitingTxt: "请稍候...");
           },
           child: Card(
             margin: const EdgeInsets.only(bottom: 4.0, left: 4.0, right: 4.0),
