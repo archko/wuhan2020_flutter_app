@@ -8,7 +8,7 @@ import 'package:wuhan2020_flutter_app/model/news_view_model.dart';
 class NewsProvider with ChangeNotifier {
   NewsViewModel viewModel;
   RefreshController refreshController;
-  NewsData _newsData;
+  NewsData _newsData = NewsData();
   List<News> data = [];
 
   NewsProvider({this.viewModel, this.refreshController}) {
@@ -28,6 +28,8 @@ class NewsProvider with ChangeNotifier {
     int startPage = 1;
     NewsResponse _response = await viewModel.loadData(startPage);
     if (null != _response && _response.data != null) {
+      _newsData.isLastPage = _response.data.isLastPage;
+      _newsData.hasNextPage = _response.data.hasNextPage;
       viewModel.setPage(startPage);
       if (_response.data.list.length > 0) {
         data = _response.data.list;
@@ -44,6 +46,11 @@ class NewsProvider with ChangeNotifier {
   }
 
   Future loadMore() async {
+    if (!_newsData.hasNextPage) {
+      refreshController?.resetNoData();
+      notifyListeners();
+      return;
+    }
     NewsResponse _response = await viewModel.loadData(viewModel.page + 1);
     if (_response.data != null && _response.data.list.length > 0) {
       data ??= [];

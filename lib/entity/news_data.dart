@@ -9,6 +9,10 @@ class NewsData {
   int total;
   int pages;
   List<News> list;
+  bool isLastPage;
+  bool hasNextPage;
+
+  NewsData();
 
   NewsData.fromJson(Map<String, dynamic> json) {
     pageNum = json['pageNum'];
@@ -18,6 +22,8 @@ class NewsData {
     endRow = json['endRow'];
     total = json['total'];
     pages = json['pages'];
+    isLastPage = json['isLastPage'];
+    hasNextPage = json['hasNextPage'];
 
     var results = json['list'];
     if (results != null) {
@@ -27,6 +33,6 @@ class NewsData {
 
   @override
   String toString() {
-    return 'NewsData{pageNum: $pageNum, pageSize: $pageSize, total: $total, list: $list}';
+    return 'NewsData{pageNum: $pageNum, pageSize: $pageSize, total: $total, hasNextPage: $hasNextPage, list: $list}';
   }
 }
