@@ -10,7 +10,6 @@ class SicknessProvinceItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       child: Ink(
-        color: Color(0xFFFFFFFF),
         child: InkResponse(
           highlightShape: BoxShape.rectangle,
           radius: 300.0,
@@ -25,7 +24,6 @@ class SicknessProvinceItem extends StatelessWidget {
                 Expanded(
                   child: Container(
                     margin: const EdgeInsets.only(left: 4.0),
-                    height: 150.0,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -40,9 +38,9 @@ class SicknessProvinceItem extends StatelessWidget {
                             style: TextStyle(color: Colors.green)),
                         Text('死亡:${bean.deadCount}',
                             style: TextStyle(color: Colors.red)),
-                        Text('${bean.comment}',
-                            style:
-                                TextStyle(fontSize: 14.0, color: Colors.red)),
+                        //Text('${bean.comment}',
+                        //    style:
+                        //        TextStyle(fontSize: 14.0, color: Colors.red)),
                       ],
                     ),
                   ),

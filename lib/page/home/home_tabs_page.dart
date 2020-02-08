@@ -106,15 +106,15 @@ class _HomeTabsPageState extends State<HomeTabsPage> {
       ));
     }
 
+    List<Rumor> rumors = _sicknessProvider.getRumorList();
+    if (rumors != null && rumors.length > 0) {
+      tabViews.add(RumorPage(rumorList: _sicknessProvider.getRumorList()));
+    }
+
     List<Recommend> recommendList = _sicknessProvider.getRecommendList();
     if (recommendList != null && recommendList.length > 0) {
       tabViews.add(
           RecommendPage(recommendList: _sicknessProvider.getRecommendList()));
-    }
-
-    List<Rumor> rumors = _sicknessProvider.getRumorList();
-    if (rumors != null && rumors.length > 0) {
-      tabViews.add(RumorPage(rumorList: _sicknessProvider.getRumorList()));
     }
 
     widget = TabBarPageWidget(

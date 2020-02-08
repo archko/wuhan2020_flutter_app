@@ -62,7 +62,9 @@ class NewsViewModel extends BaseListViewModel<NewsResponse> {
       String path = await FileHelper.getFilePath(news_cache);
       String result = await FileHelper.getFileContent(path);
       Logger.d("cache:$path,result:${result != null}");
-      _response = await compute(decodeListResult, result);
+      if (result != null) {
+        _response = await compute(decodeListResult, result);
+      }
     } catch (e) {
       Logger.e("loadFromCache .e:$e");
     }

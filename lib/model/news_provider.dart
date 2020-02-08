@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base/log/logger.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:wuhan2020_flutter_app/entity/news.dart';
 import 'package:wuhan2020_flutter_app/entity/news_data.dart';
@@ -10,6 +11,7 @@ class NewsProvider with ChangeNotifier {
   RefreshController refreshController;
   NewsData _newsData = NewsData();
   List<News> data = [];
+  List<News> _cacheData = [];
 
   NewsProvider({this.viewModel, this.refreshController}) {
     //refresh();
@@ -33,6 +35,19 @@ class NewsProvider with ChangeNotifier {
       viewModel.setPage(startPage);
       if (_response.data.list.length > 0) {
         data = _response.data.list;
+        if (_cacheData != null && _cacheData.length > 0) {
+          News first = _cacheData[0];
+          Logger.d("first:${first}");
+          for (var item in data) {
+            Logger.d("time:${item}");
+            if (item.sendTime == first.sendTime &&
+                item.sourceId == first.sourceId) {
+              break;
+            }
+            item.isNew = true;
+          }
+        }
+        _cacheData = data;
         refreshController?.refreshCompleted();
       } else {
         refreshController?.refreshFailed();
@@ -52,7 +67,7 @@ class NewsProvider with ChangeNotifier {
       _newsData.isLastPage = _response.data.isLastPage;
       _newsData.hasNextPage = _response.data.hasNextPage;
       if (_response.data.list.length > 0) {
-        data = _response.data.list;
+        _cacheData = data = _response.data.list;
         refreshController?.refreshCompleted();
       }
     }

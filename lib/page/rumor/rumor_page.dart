@@ -15,7 +15,7 @@ class RumorPage extends StatefulWidget {
 
   @override
   String toStringShort() {
-    return '谣言';
+    return '辟谣信息';
   }
 }
 

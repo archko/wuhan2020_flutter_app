@@ -12,7 +12,6 @@ class NewsItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       child: Ink(
-        color: Color(0xFFFFFFFF),
         child: InkResponse(
           highlightShape: BoxShape.rectangle,
           radius: 300.0,
@@ -22,8 +21,8 @@ class NewsItem extends StatelessWidget {
                 title: bean.fromName, waitingTxt: "请稍候...");
           },
           child: Card(
-            margin:
-                const EdgeInsets.only(bottom: 10.0, left: 10.0, right: 10.0),
+            margin: const EdgeInsets.only(
+                bottom: 4.0, left: 4.0, right: 4.0, top: 4.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -35,7 +34,9 @@ class NewsItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('${bean.fromName}:${bean.sendTime}',
-                          style: TextStyle(fontSize: 14.0, color: Colors.blue)),
+                          style: TextStyle(
+                              fontSize: 14.0,
+                              color: bean.isNew ? Colors.red : Colors.blue)),
                     ],
                   ),
                 ),

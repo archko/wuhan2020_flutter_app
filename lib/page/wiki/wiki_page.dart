@@ -18,7 +18,7 @@ class WikiPage extends StatefulWidget {
 
   @override
   String toStringShort() {
-    return '维基百科';
+    return '症状/预防';
   }
 }
 

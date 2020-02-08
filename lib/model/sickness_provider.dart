@@ -94,10 +94,6 @@ class SicknessProvider with ChangeNotifier {
 
   Future loadFromCache() async {
     _response = await viewModel.loadFromCache();
-    if (_response == null) {
-      notifyListeners();
-      return;
-    }
 
     if (_response != null &&
         _response.data != null &&
@@ -108,7 +104,7 @@ class SicknessProvider with ChangeNotifier {
     }
 
     notifyListeners();
-    refreshController?.requestRefresh();
+    refresh();
   }
 
   Future loadMore() async {

@@ -18,7 +18,7 @@ class NewsPage extends StatefulWidget {
 
   @override
   String toStringShort() {
-    return '新闻';
+    return '实时资讯';
   }
 }
 
