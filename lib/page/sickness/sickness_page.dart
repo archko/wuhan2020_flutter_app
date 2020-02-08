@@ -71,7 +71,7 @@ class _SicknessPageState extends State<SicknessPage>
     return ProviderWidget<SicknessProvider>(
       model: parentProvider,
       onModelInitial: (m) {
-        refreshController.requestRefresh();
+        //refreshController.requestRefresh();
       },
       builder: (context, model, childWidget) {
         return buildWidgetWithData(model);

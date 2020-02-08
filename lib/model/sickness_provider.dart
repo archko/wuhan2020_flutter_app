@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base/log/logger.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:wuhan2020_flutter_app/entity/recommend.dart';
 import 'package:wuhan2020_flutter_app/entity/rumor.dart';
@@ -19,6 +20,10 @@ class SicknessProvider with ChangeNotifier {
 
   SicknessProvider({this.viewModel, this.refreshController}) {
     //refresh();
+  }
+
+  bool hasResponse() {
+    return _response != null;
   }
 
   List getProvinceStats() {
@@ -76,6 +81,7 @@ class SicknessProvider with ChangeNotifier {
     refreshFailed = false;
     if (_response != null &&
         _response.data != null &&
+        _response.data.getAreaStat != null &&
         _response.data.getAreaStat.length > 0) {
       caculateCount();
       refreshController?.refreshCompleted();
@@ -84,6 +90,25 @@ class SicknessProvider with ChangeNotifier {
     }
 
     notifyListeners();
+  }
+
+  Future loadFromCache() async {
+    _response = await viewModel.loadFromCache();
+    if (_response == null) {
+      notifyListeners();
+      return;
+    }
+
+    if (_response != null &&
+        _response.data != null &&
+        _response.data.getAreaStat != null &&
+        _response.data.getAreaStat.length > 0) {
+      caculateCount();
+      refreshController?.refreshCompleted();
+    }
+
+    notifyListeners();
+    refresh();
   }
 
   Future loadMore() async {

@@ -45,65 +45,41 @@ class _HomeTabsPageState extends State<HomeTabsPage> {
     return ProviderWidget<SicknessProvider>(
       model: _sicknessProvider,
       onModelInitial: (m) {
-        m.refresh();
+        m.loadFromCache();
+        //m.refresh();
       },
       builder: (context, model, childWidget) {
         Widget widget;
-        if (model.refreshFailed) {
-          widget = Scaffold(
-            appBar: AppBar(
-              title: Text('武汉加油'),
-            ),
-            body: Center(
-              child: FlatButton(
-                color: Colors.blue,
-                onPressed: () {
-                  model.refresh();
-                },
-                child: Text('刷新失败了'),
-              ),
-            ),
-          );
-        } else if (model.getProvinceCount() == 0) {
-          widget = Scaffold(
-            appBar: AppBar(
-              title: Text('武汉加油'),
-            ),
-            body: Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
+        if (model.hasResponse()) {
+          widget = initTabs(widget);
         } else {
-          tabViews.clear();
-          tabViews.add(SicknessPage(
-            sicknessProvider: _sicknessProvider,
-          ));
-          tabViews.add(NewsPage());
-          WikiData wikiData = _sicknessProvider.getWikiData();
-          if (wikiData != null &&
-              wikiData.result != null &&
-              wikiData.result.length > 0) {
-            tabViews.add(WikiPage(
-              wikiData: wikiData,
-            ));
+          if (model.refreshFailed) {
+            widget = Scaffold(
+              appBar: AppBar(
+                title: Text('武汉加油'),
+              ),
+              body: Center(
+                child: FlatButton(
+                  color: Colors.blue,
+                  onPressed: () {
+                    model.refresh();
+                  },
+                  child: Text('刷新失败了'),
+                ),
+              ),
+            );
+          } else if (model.getProvinceCount() == 0) {
+            widget = Scaffold(
+              appBar: AppBar(
+                title: Text('武汉加油'),
+              ),
+              body: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          } else {
+            widget = initTabs(widget);
           }
-
-          List<Recommend> recommendList = _sicknessProvider.getRecommendList();
-          if (recommendList != null && recommendList.length > 0) {
-            tabViews.add(RecommendPage(
-                recommendList: _sicknessProvider.getRecommendList()));
-          }
-
-          List<Rumor> rumors = _sicknessProvider.getRumorList();
-          if (rumors != null && rumors.length > 0) {
-            tabViews
-                .add(RumorPage(rumorList: _sicknessProvider.getRumorList()));
-          }
-
-          widget = TabBarPageWidget(
-            tabViews: tabViews,
-            title: '武汉加油',
-          );
         }
         return MaterialApp(
           theme: ThemeData(
@@ -113,5 +89,38 @@ class _HomeTabsPageState extends State<HomeTabsPage> {
         );
       },
     );
+  }
+
+  Widget initTabs(Widget widget) {
+    tabViews.clear();
+    tabViews.add(SicknessPage(
+      sicknessProvider: _sicknessProvider,
+    ));
+    tabViews.add(NewsPage());
+    WikiData wikiData = _sicknessProvider.getWikiData();
+    if (wikiData != null &&
+        wikiData.result != null &&
+        wikiData.result.length > 0) {
+      tabViews.add(WikiPage(
+        wikiData: wikiData,
+      ));
+    }
+
+    List<Recommend> recommendList = _sicknessProvider.getRecommendList();
+    if (recommendList != null && recommendList.length > 0) {
+      tabViews.add(
+          RecommendPage(recommendList: _sicknessProvider.getRecommendList()));
+    }
+
+    List<Rumor> rumors = _sicknessProvider.getRumorList();
+    if (rumors != null && rumors.length > 0) {
+      tabViews.add(RumorPage(rumorList: _sicknessProvider.getRumorList()));
+    }
+
+    widget = TabBarPageWidget(
+      tabViews: tabViews,
+      title: '武汉加油',
+    );
+    return widget;
   }
 }
