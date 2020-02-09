@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base/model/provider_widget.dart';
 import 'package:flutter_base/widget/tabs/tab_bar_widget.dart';
+import 'package:wuhan2020_flutter_app/common/channel/analytics_channel.dart';
 import 'package:wuhan2020_flutter_app/entity/recommend.dart';
 import 'package:wuhan2020_flutter_app/entity/rumor.dart';
 import 'package:wuhan2020_flutter_app/entity/wiki_data.dart';
@@ -120,6 +121,14 @@ class _HomeTabsPageState extends State<HomeTabsPage> {
     widget = TabBarPageWidget(
       tabViews: tabViews,
       title: '武汉加油',
+      tabClick: (int index, String name) {
+        Map<String, String> map = Map();
+        map["page"] = "page_tab";
+        map["tab_index"] = index.toString();
+        map["tab_name"] = name;
+
+        AnalyticsChannel.post(map);
+      },
     );
     return widget;
   }

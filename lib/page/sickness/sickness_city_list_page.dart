@@ -45,8 +45,8 @@ class _SicknessCityListPageState extends State<SicknessCityListPage> {
           primary: false,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              crossAxisSpacing: 4,
-              mainAxisSpacing: 4,
+              crossAxisSpacing: 2,
+              mainAxisSpacing: 2,
               childAspectRatio: 1),
           itemCount: widget.provinceStat.cities.length,
           itemBuilder: (BuildContext context, int index) =>
@@ -74,7 +74,6 @@ class SicknessCityItem extends StatelessWidget {
           Expanded(
             child: Container(
               margin: const EdgeInsets.only(left: 4.0),
-              height: 120.0,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,

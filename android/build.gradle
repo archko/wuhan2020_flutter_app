@@ -2,6 +2,7 @@ buildscript {
     ext.kotlin_version = '1.3.61'
     repositories {
         maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        maven { url 'https://dl.bintray.com/umsdk/release' }
         google()
         jcenter()
     }
@@ -15,6 +16,7 @@ buildscript {
 allprojects {
     repositories {
         maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        maven { url 'https://dl.bintray.com/umsdk/release' }
         google()
         jcenter()
     }

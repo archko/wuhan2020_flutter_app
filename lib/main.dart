@@ -37,14 +37,16 @@ class _WuhanAppState extends State<WuhanApp> {
 
   @override
   void initState() {
-    super.initState();
     PermissionUtils.hasRequestedPermission().then((value) {
       hasRequest = value == null ? false : value;
+      Logger.d("request:$hasRequest");
     });
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    Logger.d("build:$hasRequest");
     Widget widget;
     if (hasRequest) {
       widget = HomeTabsPage();

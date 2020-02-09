@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base/model/base_list_state.dart';
 import 'package:flutter_base/model/provider_widget.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:wuhan2020_flutter_app/common/channel/analytics_channel.dart';
 import 'package:wuhan2020_flutter_app/entity/province_stat.dart';
 import 'package:wuhan2020_flutter_app/model/sickness_provider.dart';
 import 'package:wuhan2020_flutter_app/model/sickness_view_model.dart';
@@ -223,6 +224,10 @@ class _SicknessPageState extends State<SicknessPage>
   }
 
   void detail(ProvinceStat provinceStat) {
+    Map<String, String> map = Map();
+    map["page"] = "province_detail";
+    map["page_cities"] = provinceStat.provinceName;
+    AnalyticsChannel.post(map);
     Navigator.of(context).push(
       new MaterialPageRoute<void>(
         builder: (BuildContext context) {
