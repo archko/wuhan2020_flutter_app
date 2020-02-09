@@ -4,17 +4,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_base/http/http_client.dart';
 import 'package:flutter_base/http/interceptor/http_header_interceptor.dart';
-import 'package:flutter_base/http/interceptor/http_log_interceptor.dart';
 import 'package:flutter_base/log/logger.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wuhan2020_flutter_app/page/home/home_tabs_page.dart';
 import 'package:wuhan2020_flutter_app/page/news/news_page.dart';
 import 'package:wuhan2020_flutter_app/page/sickness/sickness_page.dart';
+import 'package:wuhan2020_flutter_app/utils/permission_utils.dart';
 
 void main() {
-  HttpClient.instance.addInterceptor(HttpLogInterceptor());
+  //HttpClient.instance.addInterceptor(HttpLogInterceptor());
   HttpClient.instance.addInterceptor(HttpHeaderInterceptor());
   Logger.init(debuggable: true);
   runApp(WuhanApp());
@@ -40,7 +38,7 @@ class _WuhanAppState extends State<WuhanApp> {
   @override
   void initState() {
     super.initState();
-    _hasRequestedPermission().then((value) {
+    PermissionUtils.hasRequestedPermission().then((value) {
       hasRequest = value == null ? false : value;
     });
   }
@@ -74,40 +72,14 @@ class _WuhanAppState extends State<WuhanApp> {
     );
   }
 
-  _setHasRequestPermission() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    preferences.setBool('has_requested_permission', true);
-  }
-
-  Future<bool> _hasRequestedPermission() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    return preferences.get('has_requested_permission');
-  }
-
   //permissions:[PermissionGroup.location],{PermissionGroup.location: PermissionStatus.denied, PermissionGroup.locationAlways: PermissionStatus.denied, PermissionGroup.locationWhenInUse: PermissionStatus.denied}
   //permissions:[PermissionGroup.storage]
   _requestPermission() async {
-    await requestPermission(PermissionGroup.storage, "存储");
-    await requestPermission(PermissionGroup.location, "定位");
+    await PermissionUtils.requestPermission(PermissionGroup.storage, "存储");
+    await PermissionUtils.requestPermission(PermissionGroup.location, "定位");
     hasRequest = true;
-    _setHasRequestPermission();
+    PermissionUtils.setHasRequestPermission();
     setState(() {});
-  }
-
-  Future<void> requestPermission(
-      PermissionGroup permission, String name) async {
-    final List<PermissionGroup> permissions = <PermissionGroup>[permission];
-    final Map<PermissionGroup, PermissionStatus> permissionRequestResult =
-        await PermissionHandler().requestPermissions(permissions);
-
-    Logger.d("permissions:$permissions,result:$permissionRequestResult");
-    var _permissionStatus = permissionRequestResult[permission];
-
-    if (_permissionStatus == PermissionStatus.granted) {
-      Fluttertoast.showToast(msg: "${name}权限申请通过");
-    } else {
-      Fluttertoast.showToast(msg: "${name}权限申请被拒绝");
-    }
   }
 }
 
