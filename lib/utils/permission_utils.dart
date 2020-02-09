@@ -26,7 +26,7 @@ class PermissionUtils {
     if (_permissionStatus == PermissionStatus.granted) {
       //Fluttertoast.showToast(msg: "${name}权限申请通过");
     } else {
-      Fluttertoast.showToast(msg: "${name}权限申请被拒绝");
+      //Fluttertoast.showToast(msg: "${name}权限申请被拒绝");
     }
   }
 }

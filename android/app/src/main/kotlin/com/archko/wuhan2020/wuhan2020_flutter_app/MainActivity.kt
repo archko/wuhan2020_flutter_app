@@ -81,9 +81,15 @@ class MainActivity : FlutterActivity() {
             when (key) {
                 "page_start" -> onPageStart()
                 "page_end" -> onPageEnd()
+                "page_province_detail" -> onPageProvince(params["page_cities"])
                 "page_tab" -> onPageTab(params["tab_index"], params["tab_name"])
             }
         }
+    }
+
+    public fun onPageProvince(name: String?) {
+        val map = mapOf("province_name" to name)
+        MobclickAgent.onEvent(activity, "province_detail", map)
     }
 
     private fun onPageTab(index: String?, name: String?) {

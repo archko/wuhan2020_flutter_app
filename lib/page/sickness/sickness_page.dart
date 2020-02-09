@@ -225,7 +225,7 @@ class _SicknessPageState extends State<SicknessPage>
 
   void detail(ProvinceStat provinceStat) {
     Map<String, String> map = Map();
-    map["page"] = "province_detail";
+    map["page"] = "page_province_detail";
     map["page_cities"] = provinceStat.provinceName;
     AnalyticsChannel.post(map);
     Navigator.of(context).push(
