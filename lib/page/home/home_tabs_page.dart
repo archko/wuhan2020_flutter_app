@@ -7,6 +7,7 @@ import 'package:wuhan2020_flutter_app/entity/rumor.dart';
 import 'package:wuhan2020_flutter_app/entity/wiki_data.dart';
 import 'package:wuhan2020_flutter_app/model/sickness_provider.dart';
 import 'package:wuhan2020_flutter_app/model/sickness_view_model.dart';
+import 'package:wuhan2020_flutter_app/page/gather_page.dart';
 import 'package:wuhan2020_flutter_app/page/news/news_page.dart';
 import 'package:wuhan2020_flutter_app/page/recommend/recommend_page.dart';
 import 'package:wuhan2020_flutter_app/page/rumor/rumor_page.dart';
@@ -55,19 +56,19 @@ class _HomeTabsPageState extends State<HomeTabsPage> {
           widget = initTabs(widget);
         } else {
           if (model.refreshFailed) {
-            widget = Scaffold(
-              appBar: AppBar(
-                title: Text('武汉加油'),
-              ),
-              body: Center(
-                child: FlatButton(
-                  color: Colors.blue,
-                  onPressed: () {
-                    model.refresh();
-                  },
-                  child: Text('刷新失败了'),
-                ),
-              ),
+            tabViews.clear();
+            tabViews.add(GatherPage());
+            widget = TabBarPageWidget(
+              tabViews: tabViews,
+              title: '武汉加油',
+              tabClick: (int index, String name) {
+                Map<String, String> map = Map();
+                map["page"] = "page_tab";
+                map["tab_index"] = index.toString();
+                map["tab_name"] = name;
+
+                AnalyticsChannel.post(map);
+              },
             );
           } else if (model.getProvinceCount() == 0) {
             widget = Scaffold(
@@ -98,6 +99,7 @@ class _HomeTabsPageState extends State<HomeTabsPage> {
       sicknessProvider: _sicknessProvider,
     ));
     tabViews.add(NewsPage());
+    tabViews.add(GatherPage());
     WikiData wikiData = _sicknessProvider.getWikiData();
     if (wikiData != null &&
         wikiData.result != null &&
