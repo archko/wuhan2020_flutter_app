@@ -40,6 +40,7 @@ class _WikiPageState extends State<WikiPage>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       body: SmartRefresher(
         enablePullDown: false,

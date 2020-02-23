@@ -1,5 +1,4 @@
 import 'package:flutter_base/log/logger.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

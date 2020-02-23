@@ -2,7 +2,6 @@ import 'package:wuhan2020_flutter_app/entity/province_stat.dart';
 import 'package:wuhan2020_flutter_app/entity/recommend.dart';
 import 'package:wuhan2020_flutter_app/entity/rumor.dart';
 import 'package:wuhan2020_flutter_app/entity/timeline.dart';
-import 'package:wuhan2020_flutter_app/entity/wiki.dart';
 import 'package:wuhan2020_flutter_app/entity/wiki_data.dart';
 
 class SicknessData {

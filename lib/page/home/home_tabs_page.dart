@@ -98,8 +98,8 @@ class _HomeTabsPageState extends State<HomeTabsPage> {
     tabViews.add(SicknessPage(
       sicknessProvider: _sicknessProvider,
     ));
-    tabViews.add(NewsPage());
     tabViews.add(GatherPage());
+    tabViews.add(NewsPage());
     WikiData wikiData = _sicknessProvider.getWikiData();
     if (wikiData != null &&
         wikiData.result != null &&

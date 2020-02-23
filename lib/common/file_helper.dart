@@ -1,9 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:flutter_base/log/logger.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
+import 'package:path_provider/path_provider.dart';
 
 class FileInfo {
   FileInfo(this.file, {this.validTill, this.originalUrl});
@@ -14,7 +13,7 @@ class FileInfo {
 }
 
 class FileHelper {
-  FileHelper() {}
+  FileHelper();
 
   static getFilePath(String name) async {
     List<Directory> _externalCacheDirectories =

@@ -37,9 +37,9 @@ class NewsProvider with ChangeNotifier {
         data = _response.data.list;
         if (_cacheData != null && _cacheData.length > 0) {
           News first = _cacheData[0];
-          Logger.d("first:${first}");
+          Logger.d("first:$first");
           for (var item in data) {
-            Logger.d("time:${item}");
+            Logger.d("time:$item");
             if (item.sendTime == first.sendTime &&
                 item.sourceId == first.sourceId) {
               break;

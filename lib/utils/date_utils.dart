@@ -1,13 +1,13 @@
 class DateUtils {
-  static final double MILLIS_LIMIT = 1000.0;
+  static const double MILLIS_LIMIT = 1000.0;
 
-  static final double SECONDS_LIMIT = 60 * MILLIS_LIMIT;
+  static const double SECONDS_LIMIT = 60 * MILLIS_LIMIT;
 
-  static final double MINUTES_LIMIT = 60 * SECONDS_LIMIT;
+  static const double MINUTES_LIMIT = 60 * SECONDS_LIMIT;
 
-  static final double HOURS_LIMIT = 24 * MINUTES_LIMIT;
+  static const double HOURS_LIMIT = 24 * MINUTES_LIMIT;
 
-  static final double DAYS_LIMIT = 30 * HOURS_LIMIT;
+  static const double DAYS_LIMIT = 30 * HOURS_LIMIT;
 
   static String getNewsTimeStr(DateTime date) {
     int subTimes =

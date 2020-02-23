@@ -35,6 +35,7 @@ class _RumorPageState extends State<RumorPage>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       body: SmartRefresher(
         enablePullDown: false,
