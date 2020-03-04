@@ -38,6 +38,7 @@ class _RumorPageState extends State<RumorPage>
     super.build(context);
     return Scaffold(
       body: SmartRefresher(
+        physics: BouncingScrollPhysics(),
         enablePullDown: false,
         enablePullUp: false,
         controller: refreshController,

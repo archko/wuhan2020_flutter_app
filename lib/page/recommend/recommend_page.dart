@@ -40,6 +40,7 @@ class _RecommendPageState extends State<RecommendPage>
     super.build(context);
     return Scaffold(
       body: SmartRefresher(
+        physics: BouncingScrollPhysics(),
         enablePullDown: false,
         enablePullUp: false,
         controller: refreshController,

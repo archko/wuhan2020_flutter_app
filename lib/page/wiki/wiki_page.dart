@@ -43,6 +43,7 @@ class _WikiPageState extends State<WikiPage>
     super.build(context);
     return Scaffold(
       body: SmartRefresher(
+        physics: BouncingScrollPhysics(),
         enablePullDown: false,
         enablePullUp: false,
         controller: refreshController,

@@ -62,6 +62,7 @@ class _NewsPageState extends State<NewsPage>
         return Container(
           margin: EdgeInsets.all(4),
           child: SmartRefresher(
+            physics: BouncingScrollPhysics(),
             enablePullDown: true,
             enablePullUp: true,
             controller: refreshController,

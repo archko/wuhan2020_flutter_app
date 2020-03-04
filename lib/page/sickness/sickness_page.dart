@@ -175,6 +175,7 @@ class _SicknessPageState extends State<SicknessPage>
     return Container(
       margin: EdgeInsets.all(4),
       child: SmartRefresher(
+        physics: BouncingScrollPhysics(),
         enablePullDown: true,
         enablePullUp: false,
         controller: refreshController,

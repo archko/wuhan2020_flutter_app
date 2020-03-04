@@ -31,6 +31,7 @@ class _SicknessCityListPageState extends State<SicknessCityListPage> {
         title: Text(widget.provinceStat.provinceName),
       ),
       body: SmartRefresher(
+        physics: BouncingScrollPhysics(),
         enablePullDown: false,
         enablePullUp: false,
         controller: refreshController,

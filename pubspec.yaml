@@ -14,7 +14,7 @@ description: A Flutter project for wuhan2020.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
   flutter:
@@ -23,19 +23,13 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.3
-  json_annotation: 3.0.0
   cached_network_image: 2.0.0
 
-  pull_to_refresh: ^1.5.8
-
-  provider: 3.2.0
-  #flutter_webview_plugin: ^0.3.10+1
-
-  path_provider: 1.6.0
+  path_provider: 1.6.5
   #uuid:  "^2.0.0"
   permission_handler: '^4.2.0+hotfix.3'
   #fluttertoast: ^3.1.3
-  shared_preferences: ^0.5.6+1
+  shared_preferences: ^0.5.6+2
 
   flutter_base:
     #git:
