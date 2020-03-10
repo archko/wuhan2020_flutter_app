@@ -88,7 +88,7 @@ class NewsProvider with ChangeNotifier {
       data.addAll(_response.data.list);
       viewModel.setPage(viewModel.page + 1);
 
-      refreshController?.refreshCompleted();
+      refreshController?.loadComplete();
     } else {
       if (_response.code == 200) {
         refreshController?.resetNoData();
